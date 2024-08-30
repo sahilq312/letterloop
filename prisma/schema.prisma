@@ -13,4 +13,21 @@ model User {
   email     String @unique 
   firstName String
   lastName  String
+  newsletter Newsletter?
+}
+
+model Newsletter {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  authorId    Int          @unique
+  author      User         @relation(fields: [authorId], references: [id])
+  subscribers Subscriber[]
+}
+
+model Subscriber {
+  id           Int        @id @default(autoincrement())
+  email        String
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
+  newsletterId Int
 }
