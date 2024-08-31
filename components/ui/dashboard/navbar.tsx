@@ -69,6 +69,7 @@ import {
 } from "@/components/ui/tooltip"
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
+import { ModeToggle } from "../toggle"
 //import { ModeToggle } from "./toggle"
 
 
@@ -249,7 +250,7 @@ export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
               className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
             />
           </div>
-          {/* <ModeToggle/> */}
+           <ModeToggle/> 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
