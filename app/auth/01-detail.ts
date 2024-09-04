@@ -17,7 +17,7 @@ export const getNewsletter = cache(async (): Promise<{
 
         const user = await getUser();
         if (!user?.id) {
-            console.error('User ID is missing.');
+            //console.error('User ID is missing.');
             return null;
         }
 

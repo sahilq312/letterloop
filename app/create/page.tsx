@@ -1,6 +1,7 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { NameNewsletterForm } from "./form";
+import { Card } from "@/components/ui/card";
 
 export default async function Page () {
     const {getUser} = getKindeServerSession();
@@ -13,8 +14,8 @@ export default async function Page () {
     }
 
     return (
-        <>
+        <div className="flex items-center justify-center min-h-screen">
         <NameNewsletterForm email={user.email}/>
-        </>
+        </div>
     )
 }

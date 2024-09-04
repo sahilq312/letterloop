@@ -1,7 +1,9 @@
-export default function Page() {
+import {NameNewsletterForm} from './newsletterForm'
+export default function Page({params} : {params : {id : number}}) {
+    const newsletterId = params.id
     return (
-        <div>
-            Dashboard
-        </div>
+       <div>
+         <NameNewsletterForm id={newsletterId}/>
+       </div>
     )
 }

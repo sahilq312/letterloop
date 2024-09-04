@@ -43,21 +43,21 @@ export const NameNewsletterForm =({email} : {email :string})=> {
     })
   }
   return (
-    <Card>
+    <Card className="w-2/5 p-10">
     <Form{...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
+        <div className="space-y-6">
           <FormField
             name="name"
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Name your newsletter </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     disabled={isPending}
-                    placeholder="John Doe"
+                    placeholder="Acme co"
                     type="text"
                   />
                 </FormControl>
