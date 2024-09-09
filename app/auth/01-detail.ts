@@ -33,6 +33,7 @@ export const getNewsletter = cache(async (): Promise<{
         const newsletter = await db.newsletter.findUnique({
             where: { authorId: userDetails.id },
             select: {
+                id : true,
                 name: true,
                 description: true,
                 subscribers: true

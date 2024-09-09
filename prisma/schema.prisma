@@ -8,21 +8,22 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  kindeId   String @unique
-  email     String @unique 
-  firstName String
-  lastName  String
+  id         Int         @id @default(autoincrement())
+  kindeId    String      @unique
+  email      String      @unique
+  firstName  String
+  lastName   String
   newsletter Newsletter?
 }
 
 model Newsletter {
   id          Int          @id @default(autoincrement())
-  name        String
+  name        String       @unique
   description String?
   authorId    Int          @unique
   author      User         @relation(fields: [authorId], references: [id])
   subscribers Subscriber[]
+  emails      Email[]
 }
 
 model Subscriber {
@@ -30,4 +31,13 @@ model Subscriber {
   email        String
   newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
   newsletterId Int
+}
+
+model Email {
+  id           Int        @id @default(autoincrement())
+  subject      String
+  body         String
+  html         String
+  newsletterId Int        @unique
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
 }

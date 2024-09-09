@@ -10,8 +10,7 @@ import { RegisterLink, LoginLink } from '@kinde-oss/kinde-auth-nextjs/components
 const navigation = [
   { name: 'Product', href: '#' },
   { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  {name : 'Contribute', href : 'https://github.com/sahilq312/letterloop'}
 ]
 
 export default function Home() {
