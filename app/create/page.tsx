@@ -5,13 +5,23 @@ import { Card } from "@/components/ui/card";
 
 export default async function Page () {
     const {getUser} = getKindeServerSession();
-    const user = await getUser(); 
-    if(!user ){
+    //get user session
+   
+    
+    const user = await getUser();
+      console.log(
+        "user",
+        user
+    );
+    // if any error with session redirect to login page
+    if(!user || !user.email ){
         redirect("/login")
     }
-    if(!user.email){
+   /*  if(!user.email){
         redirect("/login")
-    }
+    } */
+    console.log(user.email);
+    
 
     return (
         <div className="flex items-center justify-center min-h-screen">

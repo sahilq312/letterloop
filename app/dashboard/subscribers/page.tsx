@@ -69,7 +69,7 @@ const people = [
   
   export default function Example() {
     return (
-        <List/>
+        <List />
     )
   }
   

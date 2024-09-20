@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     if (!user || !user.id) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-
+    
     const requestBody = await req.json();
     const validatedData = serverSendMailSchema.safeParse(requestBody);
 

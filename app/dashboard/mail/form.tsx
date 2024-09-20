@@ -9,11 +9,13 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"
 
-export const sendMailSchema = z.object({
+const sendMailSchema = z.object({
   newsletterName: z.string(),
   subject: z.string().min(6, { message: "Subject must be at least 6 characters long" }),
-  body: z.string(),
+  body: z.string().min(10, { message: "Body must be at least 10 characters long" }),
   html: z.string().optional()
 })
 
@@ -53,6 +55,7 @@ export const SendMailForm = ({ newsletterName }: { newsletterName: string }) => 
 
       if (response.ok) {
         setSuccess(`${data.message} Sent to ${data.sentTo} subscribers.`)
+        form.reset()
       } else {
         throw new Error(data.error || "Failed to send email")
       }
@@ -64,63 +67,80 @@ export const SendMailForm = ({ newsletterName }: { newsletterName: string }) => 
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 space-y-8">
-        <FormField
-          control={form.control}
-          name="subject"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>Subject</FormLabel>
-              <FormControl>
-                <Input placeholder="Subject" {...field}/>
-              </FormControl>
-              <FormDescription>
-                This is the subject line for your email
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="body"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>Body</FormLabel>
-              <FormControl>
-                <Textarea rows={10} placeholder="Email body" {...field}/>
-              </FormControl>
-              <FormDescription>
-                This is the main content of your email
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="html"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>HTML (Optional)</FormLabel>
-              <FormControl>
-                <Textarea rows={10} placeholder="HTML template (optional)" {...field}/>
-              </FormControl>
-              <FormDescription>
-                Paste or write the HTML code for your email template (optional)
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Sending..." : "Send Email"}
-        </Button>
-        {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
-        {success && <Alert variant="default"><AlertDescription>{success}</AlertDescription></Alert>}
-      </form>
-    </Form>
+    <Card className="w-full max-w-2xl mx-auto">
+      <CardHeader>
+        <CardTitle>Send Email to Subscribers</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="subject"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>Subject</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter email subject" {...field}/>
+                  </FormControl>
+                  <FormDescription>
+                    This is the subject line for your email
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="body"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>Body</FormLabel>
+                  <FormControl>
+                    <Textarea rows={10} placeholder="Enter email body" {...field}/>
+                  </FormControl>
+                  <FormDescription>
+                    This is the main content of your email
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="html"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>HTML (Optional)</FormLabel>
+                  <FormControl>
+                    <Textarea rows={10} placeholder="Enter HTML template (optional)" {...field}/>
+                  </FormControl>
+                  <FormDescription>
+                    Paste or write the HTML code for your email template (optional)
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending ? "Sending..." : "Send Email"}
+            </Button>
+            {error && (
+              <Alert variant="destructive">
+                <XCircleIcon className="h-4 w-4 mr-2" />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            {success && (
+              <Alert variant="default">
+                <CheckCircleIcon className="h-4 w-4 mr-2" />
+                <AlertDescription>{success}</AlertDescription>
+              </Alert>
+            )}
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }
 
