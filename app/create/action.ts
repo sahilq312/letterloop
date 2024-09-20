@@ -1,11 +1,13 @@
 "use server"
 
 import { db } from "@/lib/db"
-import { error } from "console"
 
 export default async function NameNewsletter({email, name} : { email : string, name : string}) {
     try {
+       // console.log("hello");
+        
         const user = await db.user.findUnique({
+
             where : {
                 email : email
             },

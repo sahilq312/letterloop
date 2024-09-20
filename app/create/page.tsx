@@ -9,10 +9,10 @@ export default async function Page () {
    
     
     const user = await getUser();
-      console.log(
+      /* console.log(
         "user",
         user
-    );
+    ); */
     // if any error with session redirect to login page
     if(!user || !user.email ){
         redirect("/login")
