@@ -40,9 +40,11 @@ export async function POST(req: NextRequest) {
         name: validatedData.data.newsletterName,
       },
       select: {
+        id: true,
         subscribers: true,
         author: {
           select: {
+            id: true,
             email: true,
           },
         },
@@ -65,8 +67,18 @@ export async function POST(req: NextRequest) {
     };
 
     const info = await transporter.sendMail(mailData);
+    const newEmail = await db.email.create({
+      data: {
+        subject: validatedData.data.subject,
+        body: validatedData.data.body || "",
+        html: validatedData.data.html || "",
+        newsletterId: newsletter.id,
+      }
+    });
     return NextResponse.json({ message: "Mail sent", messageId: info.messageId }, { status: 200 });
-
+    //return NextResponse.json({ message: "Mail sent", sendTo : emailString }, { status: 200 });
+    console.log(emailString);
+    
   } catch (error) {
     console.error("Error sending mail:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

@@ -137,7 +137,7 @@ export const NameNewsletterForm = ({ id, name, description, subscribers }: Newsl
                                 <AlertDescription>{success}</AlertDescription>
                             </Alert>
                         )}
-                        <Button type="submit" className="w-full" disabled={isPending}>
+                        <Button type="submit" className="w-full"  disabled={subscribers === 0 || isPending}>
                             {isPending ? "Saving..." : (id ? "Update Newsletter" : "Create Newsletter")}
                         </Button>
                     </form>

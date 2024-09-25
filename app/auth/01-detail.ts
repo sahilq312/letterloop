@@ -2,10 +2,12 @@ import 'server-only'
 import { cache } from 'react'
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { db } from '@/lib/db';
+import { Email } from '@prisma/client';
 
 export const getNewsletter = cache(async (): Promise<{
     id: number;
     name: string;
+    emails: Email[];
     description: string | null;
     subscribers: { email: string; }[];
 } | null> => {
@@ -37,6 +39,7 @@ export const getNewsletter = cache(async (): Promise<{
                 id: true,
                 name: true,
                 description: true,
+                emails : true,
                 subscribers: {
                     select: {
                         email: true

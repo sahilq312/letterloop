@@ -22,7 +22,7 @@ model Newsletter {
   name        String       @unique
   description String?
   authorId    Int          @unique
-  author      User         @relation(fields: [authorId], references: [id])
+  author      User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
   subscribers Subscriber[]
   emails      Email[]
 }
@@ -30,7 +30,7 @@ model Newsletter {
 model Subscriber {
   id           Int        @id @default(autoincrement())
   email        String
-  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id], onDelete: Cascade)
   newsletterId Int
 }
 
@@ -40,5 +40,6 @@ model Email {
   body         String
   html         String
   newsletterId Int        @unique
-  newsletter   Newsletter @relation(fields: [newsletterId], references: [id])
+  newsletter   Newsletter @relation(fields: [newsletterId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
 }
