@@ -18,6 +18,9 @@ import {
   ShoppingCart,
   Truck,
   Users2,
+  Eye,
+  Mail,
+  Users,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -31,14 +34,6 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -48,20 +43,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+
 import {
   Tooltip,
   TooltipContent,
@@ -70,9 +52,6 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { ModeToggle } from "../toggle"
-//import { ModeToggle } from "./toggle"
-
-
 
 export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
 
@@ -81,7 +60,7 @@ export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
           <Link
-            href="#"
+            href="/"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
             <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
@@ -103,50 +82,38 @@ export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/dashboard/preview"
                 className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
-                <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">Orders</span>
+                <Eye className="h-5 w-5" />
+                <span className="sr-only">Preview</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Orders</TooltipContent>
+            <TooltipContent side="right">Preview</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/dashboard/mail"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
-                <Package className="h-5 w-5" />
-                <span className="sr-only">Products</span>
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Mail</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Products</TooltipContent>
+            <TooltipContent side="right">Mail</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                href="/dashboard/subscribers"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
-                <Users2 className="h-5 w-5" />
-                <span className="sr-only">Customers</span>
+                <Users className="h-5 w-5" />
+                <span className="sr-only">Subscribers</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Customers</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <LineChart className="h-5 w-5" />
-                <span className="sr-only">Analytics</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Analytics</TooltipContent>
+            <TooltipContent side="right">Subscribers</TooltipContent>
           </Tooltip>
           </TooltipProvider>
         </nav>
@@ -155,7 +122,7 @@ export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="#"
+                  href="/dashboard/settings"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
                 <Settings className="h-5 w-5" />
@@ -179,46 +146,39 @@ export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
             <SheetContent side="left" className="sm:max-w-xs">
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
-                  href="#"
+                  href="/dashboard"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
                   <span className="sr-only">Acme Inc</span>
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Home className="h-5 w-5" />
                   Dashboard
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/preview"
                   className="flex items-center gap-4 px-2.5 text-foreground"
                 >
-                  <ShoppingCart className="h-5 w-5" />
-                  Orders
+                  <Eye className="h-5 w-5" />
+                  Preview
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/mail"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
-                  <Package className="h-5 w-5" />
-                  Products
+                  <Mail className="h-5 w-5" />
+                  Mail
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/subscribers"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
-                  <Users2 className="h-5 w-5" />
-                  Customers
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <LineChart className="h-5 w-5" />
-                  Settings
+                  <Users className="h-5 w-5" />
+                  Subscribers
                 </Link>
               </nav>
             </SheetContent>
@@ -227,18 +187,18 @@ export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Dashboard</Link>
+                  <Link href="/dashboard">Dashboard</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Orders</Link>
+                  <Link href="/dashboard/mail">Mail</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Recent Orders</BreadcrumbPage>
+                <BreadcrumbPage>Recent Mails</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -268,7 +228,6 @@ export const DashboardNavbar = ({children } : {children : React.ReactNode}) => {
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Logout</DropdownMenuItem>
-              {/* <DropdownMenuItem className="text-red-700"></DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         </header>

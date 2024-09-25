@@ -13,6 +13,7 @@ import updateNewsletter from "./update";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircleIcon, XCircleIcon, ShareIcon } from "@heroicons/react/24/solid";
+import { Newsletter } from "@prisma/client";
 
 const NewsletterFormSchema = z.object({
     id: z.number(),
@@ -20,7 +21,14 @@ const NewsletterFormSchema = z.object({
     description: z.string().min(10, { message: "Description must be at least 10 characters long" })
 });
 
-export const NameNewsletterForm = ({ id }: { id: number }) => {
+type NewsletterFormProps = {
+    id: number;
+    name?: string;
+    description?: string;
+    subscribers?: number;
+};
+
+export const NameNewsletterForm = ({ id, name, description, subscribers }: NewsletterFormProps) => {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
@@ -30,8 +38,8 @@ export const NameNewsletterForm = ({ id }: { id: number }) => {
         resolver: zodResolver(NewsletterFormSchema),
         defaultValues: {
             id: id,
-            name: "",
-            description: "",
+            name: name || "",
+            description: description || "",
         },
     });
 
@@ -42,8 +50,10 @@ export const NameNewsletterForm = ({ id }: { id: number }) => {
             updateNewsletter(values).then((data) => {
                 if (data.success) {
                     setSuccess(data.success);
-                    setShareUrl(`https://yourwebsite.com/subscribe/${id}`); // Replace with your actual subscription URL
-                    form.reset();
+                    form.reset({
+                        ...data.data,
+                        description: data.data.description ?? undefined
+                    });
                 } else if (data.error) {
                     setError(data.error);
                 }
@@ -74,7 +84,7 @@ export const NameNewsletterForm = ({ id }: { id: number }) => {
     return (
         <Card className="w-full max-w-md mx-auto">
             <CardHeader>
-                <CardTitle>Create Newsletter</CardTitle>
+                <CardTitle>{id ? "Update Newsletter" : "Create Newsletter"}</CardTitle>
             </CardHeader>
             <CardContent>
                 <Form {...form}>
@@ -114,6 +124,7 @@ export const NameNewsletterForm = ({ id }: { id: number }) => {
                                 </FormItem>
                             )}
                         />
+                        <p className="text-sm text-gray-500">Subscribers: {subscribers}</p>
                         {error && (
                             <Alert variant="destructive">
                                 <XCircleIcon className="h-4 w-4" />
@@ -127,7 +138,7 @@ export const NameNewsletterForm = ({ id }: { id: number }) => {
                             </Alert>
                         )}
                         <Button type="submit" className="w-full" disabled={isPending}>
-                            {isPending ? "Creating..." : "Create Newsletter"}
+                            {isPending ? "Saving..." : (id ? "Update Newsletter" : "Create Newsletter")}
                         </Button>
                     </form>
                 </Form>

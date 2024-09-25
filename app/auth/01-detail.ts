@@ -4,9 +4,10 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { db } from '@/lib/db';
 
 export const getNewsletter = cache(async (): Promise<{
+    id: number;
     name: string;
     description: string | null;
-    subscribers: { id: number; email: string; newsletterId: number; }[];
+    subscribers: { email: string; }[];
 } | null> => {
     try {
         const { getUser } = getKindeServerSession();
@@ -33,10 +34,14 @@ export const getNewsletter = cache(async (): Promise<{
         const newsletter = await db.newsletter.findUnique({
             where: { authorId: userDetails.id },
             select: {
-                id : true,
+                id: true,
                 name: true,
                 description: true,
-                subscribers: true
+                subscribers: {
+                    select: {
+                        email: true
+                    }
+                }
             }
         });
 
