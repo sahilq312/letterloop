@@ -1,5 +1,5 @@
 import { getNewsletter } from "@/app/auth/01-detail"
-import { db } from "@/lib/db";
+//import { db } from "@/lib/db";
 import { HistoryList } from "./historyList";
 
 export default async function HistoryPage() {
